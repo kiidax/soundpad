@@ -1,0 +1,103 @@
+/*
+This file is part of SoundPad.
+
+SoundPad is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+SoundPad is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with SoundPad; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
+#include "resource.h"
+
+// Menu
+
+IDR_SOUNDPAD MENU 
+BEGIN
+    POPUP "&File"
+    BEGIN
+	MENUITEM "&Save\tCtrl-S",		ID_FILE_SAVE
+	MENUITEM SEPARATOR
+        MENUITEM "E&xit\tCtrl-Q",               ID_FILE_EXIT
+    END
+    POPUP "&Control"
+    BEGIN
+        MENUITEM "&Record\t2",                   ID_CONTROL_RECORD
+        MENUITEM "&Play\t3",                     ID_CONTROL_PLAY
+        MENUITEM "&Stop\t4",                     ID_CONTROL_STOP
+        MENUITEM SEPARATOR
+        MENUITEM "&Loop\tL",                       ID_CONTROL_LOOP
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About SoundPad...",             ID_HELP_ABOUT
+    END
+END
+
+// Accelerators
+
+IDC_SOUNDPAD ACCELERATORS 
+BEGIN
+    "3",            ID_CONTROL_PLAY,        VIRTKEY, NOINVERT
+    "2",            ID_CONTROL_RECORD,      VIRTKEY, NOINVERT
+    "4",            ID_CONTROL_STOP,        VIRTKEY, NOINVERT
+    "Q",            ID_FILE_EXIT,           VIRTKEY, CONTROL, NOINVERT
+    "L",            ID_CONTROL_LOOP,        VIRTKEY, NOINVERT
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
+END
+
+// Icon
+
+IDI_SOUNDPAD            ICON                    "soundpad.ico"
+
+// Dialog
+
+IDD_SOUNDPAD DIALOGEX 10, 10, 172, 47
+STYLE DS_SETFONT | WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU
+CAPTION "SoundPad"
+MENU IDR_SOUNDPAD
+CLASS "SoundPad"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    PUSHBUTTON      "Record",ID_CONTROL_RECORD,5,5,50,14 //,WS_GROUP
+    PUSHBUTTON      "Play",ID_CONTROL_PLAY,60,5,50,14,0 //,WS_EX_TRANSPARENT
+    PUSHBUTTON      "Stop",ID_CONTROL_STOP,115,5,50,14
+    CONTROL         "Loop",IDC_LOOP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,60,
+                    30,32,10
+    DEFPUSHBUTTON   "Close",ID_FILE_EXIT,115,25,50,14
+    LTEXT           "---",IDC_STATUS,10,30,40,8,NOT WS_GROUP
+END
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 222, 57
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "About SoundPad"
+FONT 8, "MS Sans Serif", 400, 0, 0x1
+BEGIN
+    LTEXT           "SoundPad Version 1.2.7",IDC_STATIC,45,15,120,8
+    DEFPUSHBUTTON   "OK",IDC_ABOUT_OK,160,10,50,14
+    ICON            IDI_SOUNDPAD,IDC_STATIC,10,15,20,20
+    LTEXT           "Copyright (C) 2002-2003 Katsuya Iida",IDC_STATIC,45,30,130,8
+END
+
+// String Table
+
+STRINGTABLE 
+BEGIN
+    IDS_RECORD              "Record"
+    IDS_PLAY                "Play"
+    IDS_STOP                "Stop"
+    IDS_IDLE                "Idle"
+    IDS_PLAYING             "Playing..."
+    IDS_ECHOING             "Echoing..."
+    IDS_RECORDING           "Recording..."
+END
+
+// EOF

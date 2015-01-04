@@ -1,0 +1,36 @@
+# This file is part of SoundPad.
+
+# SoundPad is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+
+# SoundPad is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with SoundPad; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+CC = gcc
+CFLAGS = -O2 -DNDEBUG -D_WINDOWS -DWIN32 -mno-cygwin -mwindows 
+LDFLAGS = -L/usr/lib/mingw
+LIBS = -lwinmm -lmingw32
+
+OBJS = soundpad.o resource.o
+
+all: soundpad.exe
+
+soundpad.exe: $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $@ $(LDFLAGS) $(LIBS)
+
+resource.o: soundpad.rc resource.h
+	windres $< $@
+
+soundpad.o: soundpad.c resource.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -f *.o
